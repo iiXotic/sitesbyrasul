@@ -81,9 +81,11 @@ function buildMailBody(form: HTMLFormElement) {
 }
 
 function WebsiteCheckSection({
-  onSubmit
+  onSubmit,
+  statusMessage
 }: {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  statusMessage: string;
 }) {
   return (
     <section id="free-check" className="free-check-section">
@@ -145,6 +147,11 @@ function WebsiteCheckSection({
           <button className="button primary" type="submit">
             Send Request
           </button>
+          {statusMessage && (
+            <p className="form-status" aria-live="polite">
+              {statusMessage}
+            </p>
+          )}
         </form>
       </div>
     </section>
@@ -153,6 +160,7 @@ function WebsiteCheckSection({
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState("");
 
   function closeMenu() {
     setIsMenuOpen(false);
@@ -164,6 +172,10 @@ export default function Home() {
     const business = new FormData(form).get("business") || "Local Business";
     const subject = `Free Website Check for ${business}`;
     const body = buildMailBody(form);
+
+    setFormStatus(
+      `Your request is ready to send to ${CONTACT.email}. Press Send in your email app, and I will be with you shortly.`
+    );
 
     window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
       String(subject)
@@ -360,7 +372,7 @@ export default function Home() {
         </div>
       </section>
 
-      <WebsiteCheckSection onSubmit={handleWebsiteCheck} />
+      <WebsiteCheckSection onSubmit={handleWebsiteCheck} statusMessage={formStatus} />
 
       <section className="why-section">
         <div className="section-shell">
