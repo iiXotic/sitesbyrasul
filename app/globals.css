@@ -801,6 +801,20 @@ h3 {
   cursor: pointer;
 }
 
+.check-form .button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.bot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .form-status {
   margin: 14px 0 0;
   padding: 13px 14px;
@@ -810,6 +824,16 @@ h3 {
   background: rgba(45, 212, 191, 0.1);
   font-size: 0.95rem;
   font-weight: 700;
+}
+
+.form-status.pending {
+  border-color: rgba(59, 130, 246, 0.42);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.form-status.error {
+  border-color: rgba(248, 113, 113, 0.48);
+  background: rgba(248, 113, 113, 0.12);
 }
 
 .site-footer {

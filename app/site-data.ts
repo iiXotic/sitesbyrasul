@@ -9,6 +9,13 @@ export const CONTACT = {
   tiktok: "#"
 };
 
+// EDIT: Web3Forms sends the Free Website Check form to your business email.
+// This access key is safe to place in frontend code because Web3Forms is built for static sites.
+export const WEB3FORMS = {
+  accessKey: "12b02255-6090-4b43-8bf1-661b8e6850fa",
+  endpoint: "https://api.web3forms.com/submit"
+};
+
 // EDIT: Add, remove, or rewrite services here.
 export const services = [
   {

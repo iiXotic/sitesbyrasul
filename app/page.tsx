@@ -21,7 +21,7 @@ import {
   Zap
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { CONTACT, PAYMENT, feedbackNotes, packages, sampleConcepts, services } from "./site-data";
+import { CONTACT, PAYMENT, WEB3FORMS, feedbackNotes, packages, sampleConcepts, services } from "./site-data";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -38,6 +38,8 @@ const serviceIcons: Record<string, LucideIcon> = {
   "Basic SEO Setup": Search,
   "Website Speed & Cleanup": Zap
 };
+
+type FormStatusType = "" | "pending" | "success" | "error";
 
 const reasons = [
   {
@@ -62,30 +64,16 @@ const reasons = [
   }
 ];
 
-function buildMailBody(form: HTMLFormElement) {
-  const data = new FormData(form);
-  const lines = [
-    "Free Website Check Request",
-    "",
-    `Name: ${data.get("name") || ""}`,
-    `Business Name: ${data.get("business") || ""}`,
-    `Email: ${data.get("email") || ""}`,
-    `Phone: ${data.get("phone") || "Not provided"}`,
-    `Current Website: ${data.get("website") || "Not provided"}`,
-    "",
-    "Message:",
-    `${data.get("message") || ""}`
-  ];
-
-  return lines.join("\n");
-}
-
 function WebsiteCheckSection({
   onSubmit,
-  statusMessage
+  statusMessage,
+  statusType,
+  isSubmitting
 }: {
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
   statusMessage: string;
+  statusType: FormStatusType;
+  isSubmitting: boolean;
 }) {
   return (
     <section id="free-check" className="free-check-section">
@@ -99,6 +87,7 @@ function WebsiteCheckSection({
         </div>
 
         <form className="check-form" onSubmit={onSubmit}>
+          <input className="bot-field" name="botcheck" tabIndex={-1} autoComplete="off" />
           <div className="form-grid">
             <label>
               Your Name
@@ -144,11 +133,11 @@ function WebsiteCheckSection({
               required
             />
           </label>
-          <button className="button primary" type="submit">
-            Send Request
+          <button className="button primary" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Sending..." : "Send Request"}
           </button>
           {statusMessage && (
-            <p className="form-status" aria-live="polite">
+            <p className={`form-status ${statusType}`} aria-live="polite">
               {statusMessage}
             </p>
           )}
@@ -161,25 +150,62 @@ function WebsiteCheckSection({
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("");
+  const [formStatusType, setFormStatusType] = useState<FormStatusType>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function closeMenu() {
     setIsMenuOpen(false);
   }
 
-  function handleWebsiteCheck(event: FormEvent<HTMLFormElement>) {
+  async function handleWebsiteCheck(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const business = new FormData(form).get("business") || "Local Business";
+    const data = new FormData(form);
+    const business = data.get("business") || "Local Business";
     const subject = `Free Website Check for ${business}`;
-    const body = buildMailBody(form);
 
-    setFormStatus(
-      `Your request is ready to send to ${CONTACT.email}. Press Send in your email app, and I will be with you shortly.`
-    );
+    if (data.get("botcheck")) {
+      return;
+    }
 
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
-      String(subject)
-    )}&body=${encodeURIComponent(body)}`;
+    setIsSubmitting(true);
+    setFormStatusType("pending");
+    setFormStatus("Sending your request...");
+
+    try {
+      const response = await fetch(WEB3FORMS.endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS.accessKey,
+          subject,
+          from_name: "Sites By Rasul website",
+          name: data.get("name"),
+          business_name: data.get("business"),
+          email: data.get("email"),
+          phone: data.get("phone") || "Not provided",
+          current_website: data.get("website") || "Not provided",
+          message: data.get("message")
+        })
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error("Form submission failed");
+      }
+
+      form.reset();
+      setFormStatusType("success");
+      setFormStatus("Sent! Thanks for reaching out. I will be with you shortly.");
+    } catch {
+      setFormStatusType("error");
+      setFormStatus(`Something went wrong. Please email me directly at ${CONTACT.email}.`);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -372,7 +398,12 @@ export default function Home() {
         </div>
       </section>
 
-      <WebsiteCheckSection onSubmit={handleWebsiteCheck} statusMessage={formStatus} />
+      <WebsiteCheckSection
+        onSubmit={handleWebsiteCheck}
+        statusMessage={formStatus}
+        statusType={formStatusType}
+        isSubmitting={isSubmitting}
+      />
 
       <section className="why-section">
         <div className="section-shell">
