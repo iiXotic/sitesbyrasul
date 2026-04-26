@@ -3,7 +3,7 @@ export const SITE_DOMAIN = "https://sitesbyrasul.com";
 
 // EDIT: Update your email, location, and social links here.
 export const CONTACT = {
-  email: "rasul@xoticwebdesign.com",
+  email: "rasul@sitesbyrasul.com",
   location: "Mississippi",
   instagram: "#",
   tiktok: "#"
