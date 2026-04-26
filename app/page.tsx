@@ -86,7 +86,14 @@ function WebsiteCheckSection({
           </span>
         </div>
 
-        <form className="check-form" onSubmit={onSubmit}>
+        <form
+          className="check-form"
+          action={WEB3FORMS.endpoint}
+          method="POST"
+          onSubmit={onSubmit}
+        >
+          <input type="hidden" name="access_key" value={WEB3FORMS.accessKey} />
+          <input type="hidden" name="from_name" value="Sites By Rasul website" />
           <input className="bot-field" name="botcheck" tabIndex={-1} autoComplete="off" />
           <div className="form-grid">
             <label>
@@ -173,23 +180,15 @@ export default function Home() {
     setFormStatus("Sending your request...");
 
     try {
+      data.set("subject", subject);
+      data.set("business_name", String(data.get("business") || ""));
+      data.set("phone", String(data.get("phone") || "Not provided"));
+      data.set("current_website", String(data.get("website") || "Not provided"));
+
       const response = await fetch(WEB3FORMS.endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify({
-          access_key: WEB3FORMS.accessKey,
-          subject,
-          from_name: "Sites By Rasul website",
-          name: data.get("name"),
-          business_name: data.get("business"),
-          email: data.get("email"),
-          phone: data.get("phone") || "Not provided",
-          current_website: data.get("website") || "Not provided",
-          message: data.get("message")
-        })
+        headers: { Accept: "application/json" },
+        body: data
       });
       const result = await response.json();
 
