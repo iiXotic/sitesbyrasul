@@ -4,11 +4,11 @@ import { SITE_DOMAIN } from "./site-data";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
-  title: "Sites By Rasul | Website Design for Mississippi Small Businesses",
-  description: "Clean, mobile-friendly websites and redesigns for local businesses in Mississippi.",
+  title: "Sites By Rasul | Website Design for Small Businesses",
+  description: "Clean, mobile-friendly websites and redesigns for small businesses.",
   openGraph: {
-    title: "Sites By Rasul | Website Design for Mississippi Small Businesses",
-    description: "Clean, mobile-friendly websites and redesigns for local businesses in Mississippi.",
+    title: "Sites By Rasul | Website Design for Small Businesses",
+    description: "Clean, mobile-friendly websites and redesigns for small businesses.",
     url: SITE_DOMAIN,
     siteName: "Sites By Rasul",
     type: "website"

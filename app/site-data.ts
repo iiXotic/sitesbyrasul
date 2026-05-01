@@ -1,10 +1,10 @@
 // EDIT: Change your live domain here when the website is published.
 export const SITE_DOMAIN = "https://sitesbyrasul.com";
 
-// EDIT: Update your email, location, and social links here.
+// EDIT: Update your email, service area, and social links here.
 export const CONTACT = {
   email: "rasul@sitesbyrasul.com",
-  location: "Mississippi",
+  location: "Serving small businesses",
   instagram: "#",
   tiktok: "#"
 };
@@ -28,7 +28,7 @@ export const services = [
   },
   {
     title: "Mobile-Friendly Fixes",
-    description: "Make key pages easier to read, tap, and use on phones where most local customers browse."
+    description: "Make key pages easier to read, tap, and use on phones where most customers browse."
   },
   {
     title: "Contact Forms / Booking Forms",
@@ -36,11 +36,11 @@ export const services = [
   },
   {
     title: "Google Business Profile Help",
-    description: "Set up or clean up the basics so locals can find your business faster on Google."
+    description: "Set up or clean up the basics so customers can find your business faster on Google."
   },
   {
     title: "Basic SEO Setup",
-    description: "Page titles, descriptions, headings, and local keywords that give search engines a clearer signal."
+    description: "Page titles, descriptions, headings, and targeted keywords that give search engines a clearer signal."
   },
   {
     title: "Website Speed & Cleanup",
@@ -53,7 +53,7 @@ export const packages = [
   {
     name: "Starter Website",
     badge: "Simple Start",
-    audience: "Good for simple local businesses that need a basic online presence.",
+    audience: "Good for small businesses that need a basic online presence.",
     priceNote: "$99",
     quoteNote: "Final quote depends on content",
     features: ["1-page website", "Mobile design", "Contact button", "Basic SEO"]
@@ -81,7 +81,7 @@ export const packages = [
 export const PAYMENT = {
   title: "How payment works",
   description:
-    "After we agree on the project, I will send a secure PayPal invoice for the exact quote. Cash App is also available for local payments.",
+    "After we agree on the project, I will send a secure PayPal invoice for the exact quote. Cash App is also available.",
   note: "Most small projects can be paid upfront. Larger projects can start with a deposit and the rest before launch.",
   methods: ["PayPal invoice after quote", "Cash App available", "No checkout until details are confirmed"]
 };
@@ -157,6 +157,6 @@ export const feedbackNotes = [
   },
   {
     title: "Want to be featured?",
-    description: "After launch, local businesses can share feedback that may be added here with permission."
+    description: "After launch, small businesses can share feedback that may be added here with permission."
   }
 ];

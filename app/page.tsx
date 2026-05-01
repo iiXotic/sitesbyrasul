@@ -168,7 +168,7 @@ export default function Home() {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const business = data.get("business") || "Local Business";
+    const business = data.get("business") || "Small Business";
     const subject = `Free Website Check for ${business}`;
 
     if (data.get("botcheck")) {
@@ -256,14 +256,13 @@ export default function Home() {
       <section id="top" className="hero">
         <div className="section-shell">
           <div className="hero-content">
-            <p className="tiny-label">Simple. Clean. Local.</p>
+            <p className="tiny-label">Simple. Clean. Professional.</p>
             <h1>
-              Websites That Help <span>Local Businesses</span> Look Professional Online
+              Websites That Help <span>Small Businesses</span> Look Professional Online
             </h1>
             <p>
-              I build clean, mobile-friendly websites for small businesses in Mississippi
-              &mdash; whether you need a new site, a redesign, or help fixing what you
-              already have.
+              I build clean, mobile-friendly websites for small businesses &mdash; whether
+              you need a new site, a redesign, or help fixing what you already have.
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#free-check">
@@ -280,7 +279,7 @@ export default function Home() {
               </span>
               <span>
                 <CheckCircle2 size={20} />
-                Local to Mississippi
+                Built for small businesses
               </span>
               <span>
                 <CheckCircle2 size={20} />
@@ -293,10 +292,10 @@ export default function Home() {
 
       <section id="about" className="about-section">
         <div className="section-shell narrow">
-          <h2>Local Web Design You Can Trust</h2>
+          <h2>Small Business Web Design You Can Trust</h2>
           <div className="about-copy">
             <p>
-              I help local businesses in Mississippi get found online and look more trustworthy.
+              I help small businesses get found online and look more trustworthy.
             </p>
             <p>
               Many customers search online before ever calling or visiting a business. If
@@ -346,7 +345,7 @@ export default function Home() {
             <p>Transparent Pricing</p>
             <h2>Affordable Packages</h2>
             <span>
-              Simple pricing for local businesses. If the project needs something extra,
+              Simple pricing for small businesses. If the project needs something extra,
               I&apos;ll let you know before we start.
             </span>
           </div>
@@ -491,7 +490,7 @@ export default function Home() {
               Sites By Rasul
             </a>
             <p>
-              Simple, clean websites for local businesses in Mississippi. Let&apos;s make
+              Simple, clean websites for small businesses. Let&apos;s make
               your online presence look as professional as the work you do.
             </p>
             <div className="footer-socials">
